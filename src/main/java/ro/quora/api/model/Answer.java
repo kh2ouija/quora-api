@@ -2,10 +2,7 @@ package ro.quora.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +10,6 @@ public class Answer {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     private Long id;
 
     @ManyToOne
@@ -21,6 +17,7 @@ public class Answer {
     private Poll poll;
 
     private String text;
+    private Integer votes;
 
     public Long getId() {
         return id;
@@ -44,6 +41,14 @@ public class Answer {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Integer getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Integer votes) {
+        this.votes = votes;
     }
 
     @Override
