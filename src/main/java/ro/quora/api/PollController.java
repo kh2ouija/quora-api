@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ro.quora.api.model.Answer;
+import ro.quora.api.model.Ballot;
 import ro.quora.api.model.Poll;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class PollController {
@@ -20,13 +19,13 @@ public class PollController {
     private HashidHelper hashidHelper;
 
     @GetMapping(value = "/polls/{hash}")
-    public Poll getPoll(@PathVariable("hash") String hash) {
-        return getPollByHash(hash);
+    public Ballot getBallot(@PathVariable("hash") String hash) {
+        Poll poll = getPollByHash(hash);
+        return new Ballot(poll, false);
     }
 
     @PostMapping(value = "/polls")
     public String createPoll(@RequestBody Poll poll) {
-        poll.getAnswers().forEach(answer -> answer.setVotes(0));
         poll = pollService.save(poll);
         return hashidHelper.encode(poll.getId());
     }
@@ -37,21 +36,13 @@ public class PollController {
         if (answerIds.size() > 1 && !poll.isMultipleChoice()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("multiple votes cast for single option poll");
         }
-        recordVotes(poll, answerIds);
-        Poll pollUpdated = pollService.getById(poll.getId());
-        return ResponseEntity.ok(pollUpdated);
+        poll = pollService.recordVotes(poll, answerIds);
+        return ResponseEntity.ok(new Ballot(poll, true));
     }
 
     private Poll getPollByHash(@PathVariable("hash") String hash) {
         Long id = hashidHelper.decode(hash);
         return pollService.getById(id);
-    }
-
-    private void recordVotes(Poll poll, List<Long> answerIds) {
-        List<Long> validAnswerIds = poll.getAnswers().stream().map(Answer::getId).collect(Collectors.toList());
-        answerIds.stream()
-                .filter(validAnswerIds::contains)
-                .forEach(pollService::vote);
     }
 
 }
