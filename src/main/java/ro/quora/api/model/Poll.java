@@ -20,7 +20,7 @@ public class Poll {
     private List<Answer> answers;
 
     private boolean multipleChoice;
-    private boolean hideAnswers;
+    private boolean hideResults;
 
     public Long getId() {
         return id;
@@ -54,12 +54,12 @@ public class Poll {
         this.multipleChoice = multipleChoice;
     }
 
-    public boolean isHideAnswers() {
-        return hideAnswers;
+    public boolean isHideResults() {
+        return hideResults;
     }
 
-    public void setHideAnswers(boolean hideAnswers) {
-        this.hideAnswers = hideAnswers;
+    public void setHideResults(boolean hideResults) {
+        this.hideResults = hideResults;
     }
 
     @Override
