@@ -1,6 +1,7 @@
 package ro.quora.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ro.quora.api.security.SecurityType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,6 +22,14 @@ public class Poll {
 
     private boolean multipleChoice;
     private boolean hideResults;
+
+
+    private transient SecurityType securityType;
+
+    public SecurityType getSecurityType() {
+        return SecurityType.COOKIE;
+    }
+
 
     public Long getId() {
         return id;
