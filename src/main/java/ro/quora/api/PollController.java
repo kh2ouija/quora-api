@@ -1,6 +1,5 @@
 package ro.quora.api;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +8,7 @@ import ro.quora.api.model.Ballot;
 import ro.quora.api.model.Poll;
 import ro.quora.api.security.SecurityService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
