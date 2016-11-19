@@ -33,11 +33,11 @@
                         <id>copy-new-relic</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
                             <includeGroupIds>com.newrelic.agent.java</includeGroupIds>
-                            <includeArtifactIds>newrelic-agent</includeArtifactIds>
+                            <includeArtifactIds>newrelic-java</includeArtifactIds>
                             <stripVersion>true</stripVersion>
                         </configuration>
                     </execution>
