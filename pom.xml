@@ -70,9 +70,10 @@
         </dependency>
         <dependency>
             <groupId>com.newrelic.agent.java</groupId>
-            <artifactId>newrelic-agent</artifactId>
+            <artifactId>newrelic-java</artifactId>
             <version>3.33.0</version>
             <scope>provided</scope>
+            <type>zip</type>
         </dependency>
     </dependencies>
 
